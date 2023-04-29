@@ -1,5 +1,5 @@
 {
-    "name": "zain/livewire-tags",
+    "name": "zain/livewire-easy-tags",
     "description": "A Laravel tag system for artisans which is built in Livewire, Laravel Spatie tags, Tagify and Alpine Js.",
     "type": "library",
     "require": {
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LivewireTags\\": "src/"
+            "LivewireEasyTags\\": "src/"
         }
     },
     "license": "MIT",

@@ -1,5 +1,5 @@
 <?php
 
-Route::get('livewire-tags', function(){
-  return view('livewire-tags::welcome');
+Route::get('livewire-easy-tags', function(){
+  return view('livewire-easy-tags::welcome');
 });

@@ -1,14 +1,14 @@
 <?php
 
-namespace LivewireTags\Components;
+namespace LivewireEasyTags\Components;
 
 use Livewire\Component;
 
 //https://laracasts.com/discuss/channels/laravel/livewire-emit-on-wireclick
-class LivewireTags extends Component
+class LivewireEasyTags extends Component
 {
     public function render()
     {
-        return view('livewire-tags::livewire.livewire-tags');
+        return view('livewire-easy-tags::livewire.livewire-easy-tags');
     }
 }

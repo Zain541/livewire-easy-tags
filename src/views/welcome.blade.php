@@ -8,7 +8,7 @@
   @livewireStyles
 </head>
 <body>
-  @livewire('livewire-tags')
+  @livewire('livewire-easy-tags')
   @livewireScripts
   
 </body>

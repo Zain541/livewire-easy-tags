@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'zain/livewire-tags',
+        'name' => 'zain/livewire-easy-tags',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
         'reference' => '820d5f2f803b588a80528771f67e88b81e47459c',
@@ -895,7 +895,7 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'zain/livewire-tags' => array(
+        'zain/livewire-easy-tags' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
             'reference' => '820d5f2f803b588a80528771f67e88b81e47459c',
