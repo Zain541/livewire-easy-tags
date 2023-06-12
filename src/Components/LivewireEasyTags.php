@@ -6,6 +6,9 @@ use App\Models\User;
 use Livewire\Component;
 use Spatie\Tags\Tag;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Exception;
+use Illuminate\Http\JsonResponse;
 
 class LivewireEasyTags extends Component
 {
@@ -67,24 +70,42 @@ class LivewireEasyTags extends Component
         $myModel->detachTag($tagsArray['value'], 'firstType');
     }
 
-    public function editTag($oldValue, $updatedValue)
-    {
-        \Log::debug($oldValue);
-        \Log::debug($updatedValue);
-    }
 
+    /**
+     * Edit a tag.
+     *
+     * @param  array  $objectToBeArray The array containing the tag data.
+     * @return void
+     */
+    public function editTag(array $objectToBeArray): void
+    {
+        // Find the tag by ID and type
+        $record = Tag::whereType('firstType')->whereId($objectToBeArray['id'])->first();
+
+        // Update the tag
+        $record->name = $objectToBeArray['value'];
+        $record->save();
+    }
     public function prepareWhitelist()
     {
-        $tags = Tag::get();
-        $whitelist = '';
-        $whitelistArray = [];
-        foreach ($tags as $tag) {
-            // $whitelist .= "{id: '" . $tag->id . "' , value: '" . $tag->name . "'},";
-            $whitelistArray[] = $tag->name;
-        }
-        // $whitelist .= "'" . implode ( "', '", $whitelistArray ) . "'";
-        $whitelist .= "{'id': 25, 'value': 'working', color: 'pink', style: '--tag-bg:pink'},{'id': 29, 'value': 'great', 'color': 'yellow'}";
-        return $whitelist;
+
+        // Retrieve the tags with the specified type
+        $tags = Tag::where('type', 'firstType')->get();
+
+        $mappedTags = $tags->map(function ($tag) {
+            return [
+                'id' => $tag->id,
+                'value' => $tag->name,
+                'color' => $tag->color
+            ];
+        });
+
+        $data = json_decode($mappedTags, true);
+        $convertedArray = array_map(function ($item) {
+            return "{'id': {$item['id']}, 'value': '{$item['value']}', 'color': '{$item['color']}'}";
+        }, $data);
+        $result = implode(',', $convertedArray);
+        return $result;
     }
 
     public function prepareTransformTag()
