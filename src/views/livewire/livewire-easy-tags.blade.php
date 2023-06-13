@@ -1,6 +1,17 @@
-<div wire:ignore>
-    <div wire:key='{{ $componentKey }}' x-data="{
+<div wire:ignore class="p-3">
+    <div style="position:relative" wire:key='{{ $componentKey }}' x-data="{
         tagify: null,
+        open: false,
+        toggle: function() {
+            if (this.open) {
+                return this.close()
+            }
+            this.open = true
+        },
+        close: function() {
+            if (!this.open) return
+            this.open = false
+        },
         tagInput: null,
         whitelist: [],
         initTagify: function() {
@@ -43,13 +54,18 @@
                         }
                         return item;
                     });
-
-                }
     
+                }
+                let onTagClick = (e) => {
+    
+                    this.toggle();
+                }
     
                 this.tagify.on('add', onAddTag)
                     .on('remove', onRemoveTag)
-                    .on('edit:updated', onTagEdit);
+                    .on('edit:updated', onTagEdit)
+                    .on('click', onTagClick);
+    
     
     
     
@@ -67,6 +83,17 @@
     }">
 
         <input type="text" x-ref="tagInput" value='{{ $this->getUserTags() }}'>
+        <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close()"
+            style="display: none;"
+            class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md">
+            <a x-on:click="close()"
+                class="flex cursor-pointer items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-200 disabled:text-gray-500">
+                Delete
+            </a>
+        </div>
     </div>
+
+
+
 
 </div>
