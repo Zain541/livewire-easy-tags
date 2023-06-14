@@ -23,10 +23,11 @@
         tagInput: null,
         whitelist: [],
         initTagify: function() {
-            function transformTag(tagData) {
+            let transformTag = (tagData) => {
                 var color = this.defaultColor;
                 if (tagData.hasOwnProperty('color')) {
                     color = tagData.color;
+                    console.log('going here');
                 }
                 tagData.style = '--tag-bg:' + color;
             }
@@ -46,10 +47,6 @@
                 this.tagify = this.initTagify();
                 this.whitelist = [{!! $this->prepareWhitelist() !!}];
                 this.tagify.whitelist = this.whitelist;
-                //console.log(this.tagify.tagData);
-    
-                //this.tagify.addTags([{value:'banana', color:'yellow'}, {value:'apple', color:'red'}, {value:'watermelon', color:'green'}])
-    
     
                 let onTagEdit = (e) => {
                     var updatedValue = e.detail.data.value;
@@ -74,22 +71,15 @@
                     Livewire.emit('addNewTagEvent', e.detail.tagify.value);
                     this.tagify.whitelist.push({ 'value': e.detail.data.value, 'color': this.defaultColor });
                 }
-
-
+    
+                let onRemoveTag = (e) => {
+                    Livewire.emit('removeTagEvent', e.detail.data);
+                }
+    
                 this.tagify.on('add', onAddTag)
                     .on('remove', onRemoveTag)
                     .on('edit:updated', onTagEdit)
                     .on('click', onTagClick);
-    
-    
-    
-    
-                
-    
-                function onRemoveTag(e) {
-                    Livewire.emit('removeTagEvent', e.detail.data);
-                }
-    
     
             });
         }
