@@ -2,6 +2,7 @@
     <div style="position:relative" wire:key='{{ $componentKey }}' x-data="{
         tagify: null,
         open: false,
+        defaultColor: 'lightgray',
         activeTag: null,
         toggle: function() {
             if (this.open) {
@@ -23,13 +24,11 @@
         whitelist: [],
         initTagify: function() {
             function transformTag(tagData) {
-                var color = 'lightgray';
+                var color = this.defaultColor;
                 if (tagData.hasOwnProperty('color')) {
                     color = tagData.color;
                 }
-                console.log(color);
                 tagData.style = '--tag-bg:' + color;
-    
             }
     
             return new Tagify(this.tagInput, {
@@ -71,6 +70,12 @@
                     this.toggle();
                 }
     
+                let onAddTag = (e) => {
+                    Livewire.emit('addNewTagEvent', e.detail.tagify.value);
+                    this.tagify.whitelist.push({ 'value': e.detail.data.value, 'color': this.defaultColor });
+                }
+
+
                 this.tagify.on('add', onAddTag)
                     .on('remove', onRemoveTag)
                     .on('edit:updated', onTagEdit)
@@ -79,9 +84,7 @@
     
     
     
-                function onAddTag(e) {
-                    Livewire.emit('addNewTagEvent', e.detail.tagify.value);
-                }
+                
     
                 function onRemoveTag(e) {
                     Livewire.emit('removeTagEvent', e.detail.data);
