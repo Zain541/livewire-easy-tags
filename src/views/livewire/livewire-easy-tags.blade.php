@@ -2,11 +2,18 @@
     <div style="position:relative" wire:key='{{ $componentKey }}' x-data="{
         tagify: null,
         open: false,
+        activeTag: null,
         toggle: function() {
             if (this.open) {
                 return this.close()
             }
             this.open = true
+        },
+        deleteTag: function() {
+            Livewire.emit('deleteTagEvent', this.activeTag.id);
+            this.tagify.removeTags(this.activeTag.value)
+            this.tagify.whitelist = this.tagify.whitelist.filter(item => item.id != this.activeTag.id);
+            this.open = false;
         },
         close: function() {
             if (!this.open) return
@@ -16,7 +23,12 @@
         whitelist: [],
         initTagify: function() {
             function transformTag(tagData) {
-                tagData.style = '--tag-bg:' + tagData.color;
+                var color = 'lightgray';
+                if (tagData.hasOwnProperty('color')) {
+                    color = tagData.color;
+                }
+                console.log(color);
+                tagData.style = '--tag-bg:' + color;
     
             }
     
@@ -30,8 +42,6 @@
         },
         init() {
             this.$nextTick(() => {
-    
-    
     
                 this.tagInput = this.$refs.tagInput;
                 this.tagify = this.initTagify();
@@ -57,7 +67,7 @@
     
                 }
                 let onTagClick = (e) => {
-    
+                    this.activeTag = e.detail.data;
                     this.toggle();
                 }
     
@@ -83,10 +93,9 @@
     }">
 
         <input type="text" x-ref="tagInput" value='{{ $this->getUserTags() }}'>
-        <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close()"
-            style="display: none;"
+        <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close()" style="display: none;"
             class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md">
-            <a x-on:click="close()"
+            <a x-on:click="deleteTag()"
                 class="flex cursor-pointer items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-200 disabled:text-gray-500">
                 Delete
             </a>

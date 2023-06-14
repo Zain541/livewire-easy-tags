@@ -24,18 +24,20 @@ class LivewireEasyTags extends Component
         return [
             'addNewTagEvent' => 'addNewTag',
             'removeTagEvent' => 'removeTag',
-            'editTagEvent' => 'editTag'
+            'editTagEvent' => 'editTag',
+            'deleteTagEvent' => 'deleteTag'
         ];
     }
 
     public function addNewTag($tagArray)
     {
-        try {
-            $myModel = User::find(1);
-            $myModel->syncTagsWithType(array_column($tagArray, 'value'), 'firstType');
-        } catch (\Exception $e) {
-            return $e->getMessage();
-        }
+        $myModel = User::find(1);
+        $myModel->syncTagsWithType(array_column($tagArray, 'value'), 'firstType');
+    }
+
+    public function deleteTag($tagId)
+    {
+        Tag::whereId($tagId)->delete();
     }
 
     /**
@@ -56,7 +58,7 @@ class LivewireEasyTags extends Component
             return [
                 'id' => $tag->id,
                 'value' => $tag->name,
-                'color' => $tag->color
+                'color' => $tag->color == null ? 'lightgray' : $tag->color,
             ];
         });
 
@@ -102,7 +104,8 @@ class LivewireEasyTags extends Component
 
         $data = json_decode($mappedTags, true);
         $convertedArray = array_map(function ($item) {
-            return "{'id': {$item['id']}, 'value': '{$item['value']}', 'color': '{$item['color']}'}";
+            $tagColor = $item['color'] == null ? 'lightgray' : $item['color'];
+            return "{'id': {$item['id']}, 'value': '{$item['value']}', 'color': '{$tagColor}'}";
         }, $data);
         $result = implode(',', $convertedArray);
         return $result;
