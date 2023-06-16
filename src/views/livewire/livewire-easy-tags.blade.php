@@ -4,11 +4,42 @@
         open: false,
         defaultColor: 'lightgray',
         activeTag: null,
+        tagInput: null,
+        whitelist: [],
+        transformTag: function(tagData, color = '') {
+            if (color == '') {
+                color = this.defaultColor;
+            }
+            if (tagData.hasOwnProperty('color')) {
+                color = tagData.color;
+            }
+            tagData.style = '--tag-bg:' + color;
+        },
+        initTagify: function() {
+            return new Tagify(this.tagInput, {
+                whitelist: [],
+                transformTag: this.transformTag,
+                dropdown: {
+                    enabled: 0
+                }
+            });
+        },
         toggle: function() {
             if (this.open) {
                 return this.close()
             }
             this.open = true
+        },
+        changeColor: function(color) {
+            //let transformTag = this.transformTag(this.activeTag, color);
+            //this.initTagify.transformTag = transformTag;
+
+            console.log(this.tagify);
+            //tagData.color = getRandomColor();
+            //tagData.style = '--tag-bg:'' + tagData.color;
+            //tagify.replaceTag(tagElm, tagData);
+    
+    
         },
         deleteTag: function() {
             Livewire.emit('deleteTagEvent', this.activeTag.id);
@@ -20,26 +51,7 @@
             if (!this.open) return
             this.open = false
         },
-        tagInput: null,
-        whitelist: [],
-        initTagify: function() {
-            let transformTag = (tagData) => {
-                var color = this.defaultColor;
-                if (tagData.hasOwnProperty('color')) {
-                    color = tagData.color;
-                    console.log('going here');
-                }
-                tagData.style = '--tag-bg:' + color;
-            }
     
-            return new Tagify(this.tagInput, {
-                whitelist: [],
-                transformTag: transformTag,
-                dropdown: {
-                    enabled: 0
-                }
-            });
-        },
         init() {
             this.$nextTick(() => {
     
@@ -88,14 +100,33 @@
         <input type="text" x-ref="tagInput" value='{{ $this->getUserTags() }}'>
         <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close()" style="display: none;"
             class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md">
+            <!-- Added flex and flex-col classes -->
             <a x-on:click="deleteTag()"
                 class="flex cursor-pointer items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-200 disabled:text-gray-500">
                 Delete
             </a>
+            <div class="flex pl-2 pb-2">
+                <div x-on:click="changeColor('pink')" class="cursor-pointer ml-1 color-container"
+                    style="background: pink; ">
+
+                </div>
+                <div x-on:click="changeColor('lightgreen')" class="cursor-pointer ml-1 color-container"
+                    style="background: lightgreen;">
+
+                </div>
+            </div>
+
+            <!-- Add more flex items here -->
         </div>
     </div>
 
-
+    <style>
+        .color-container {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+    </style>
 
 
 </div>
