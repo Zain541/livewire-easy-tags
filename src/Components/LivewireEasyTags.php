@@ -25,7 +25,8 @@ class LivewireEasyTags extends Component
             'addNewTagEvent' => 'addNewTag',
             'removeTagEvent' => 'removeTag',
             'editTagEvent' => 'editTag',
-            'deleteTagEvent' => 'deleteTag'
+            'deleteTagEvent' => 'deleteTag',
+            'changeColorTagEvent' => 'changeColorTag'
         ];
     }
 
@@ -33,6 +34,11 @@ class LivewireEasyTags extends Component
     {
         $myModel = User::find(1);
         $myModel->syncTagsWithType(array_column($tagArray, 'value'), 'firstType');
+    }
+
+    public function changeColorTag($tagId, $color)
+    {
+        Tag::whereId($tagId)->update(['color' => $color]);
     }
 
     public function deleteTag($tagId)

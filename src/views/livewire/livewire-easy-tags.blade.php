@@ -1,15 +1,13 @@
 <div wire:ignore class="p-3">
     <div style="position:relative" wire:key='{{ $componentKey }}' x-data="{
         tagify: null,
-        open: false,
+        openDropdown: false,
         defaultColor: 'lightgray',
         activeTag: null,
         tagInput: null,
         whitelist: [],
         transformTag: function(tagData, color = '') {
-            if (color == '') {
-                color = this.defaultColor;
-            }
+            color = this.defaultColor;
             if (tagData.hasOwnProperty('color')) {
                 color = tagData.color;
             }
@@ -25,31 +23,28 @@
             });
         },
         toggle: function() {
-            if (this.open) {
+            if (this.openDropdown) {
                 return this.close()
             }
-            this.open = true
+            this.openDropdown = true
         },
         changeColor: function(color) {
-            //let transformTag = this.transformTag(this.activeTag, color);
-            //this.initTagify.transformTag = transformTag;
-
-            console.log(this.tagify);
-            //tagData.color = getRandomColor();
-            //tagData.style = '--tag-bg:'' + tagData.color;
-            //tagify.replaceTag(tagElm, tagData);
-    
-    
+            const { tag: tagElm, data: tagData } = this.activeTag;
+            tagData.color = color;
+            tagData.style = '--tag-bg:' + tagData.color;
+            this.tagify.replaceTag(tagElm, tagData);
+            this.openDropdown = false;
+            Livewire.emit('changeColorTagEvent', this.activeTag.data.id, color);
         },
         deleteTag: function() {
-            Livewire.emit('deleteTagEvent', this.activeTag.id);
-            this.tagify.removeTags(this.activeTag.value)
+            Livewire.emit('deleteTagEvent', this.activeTag.data.id);
+            this.tagify.removeTags(this.activeTag.data.value)
             this.tagify.whitelist = this.tagify.whitelist.filter(item => item.id != this.activeTag.id);
-            this.open = false;
+            this.openDropdown = false;
         },
         close: function() {
-            if (!this.open) return
-            this.open = false
+            if (!this.openDropdown) return
+            this.openDropdown = false
         },
     
         init() {
@@ -75,7 +70,7 @@
     
                 }
                 let onTagClick = (e) => {
-                    this.activeTag = e.detail.data;
+                    this.activeTag = e.detail;
                     this.toggle();
                 }
     
@@ -98,8 +93,8 @@
     }">
 
         <input type="text" x-ref="tagInput" value='{{ $this->getUserTags() }}'>
-        <div x-ref="panel" x-show="open" x-transition.origin.top.left x-on:click.outside="close()" style="display: none;"
-            class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md">
+        <div x-ref="panel" x-show="openDropdown" x-transition.origin.top.left x-on:click.outside="close()"
+            style="display: none;" class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md">
             <!-- Added flex and flex-col classes -->
             <a x-on:click="deleteTag()"
                 class="flex cursor-pointer items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-200 disabled:text-gray-500">
