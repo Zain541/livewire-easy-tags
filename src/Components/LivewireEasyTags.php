@@ -2,7 +2,6 @@
 
 namespace LivewireEasyTags\Components;
 
-use App\Models\User;
 use Livewire\Component;
 use Spatie\Tags\Tag;
 use Illuminate\Support\Collection;
@@ -13,9 +12,16 @@ use Illuminate\Http\JsonResponse;
 class LivewireEasyTags extends Component
 {
     public $componentKey;
+    public $modelClass;
+    public $modelId;
+    public $modelCollection;
+
+    protected $defaultColor = 'lightgray';
 
     public function mount()
     {
+        $modelObject = new $this->modelClass;
+        $this->modelCollection = $modelObject->find($this->modelId);
         $this->componentKey = rand(1, 1000000) . microtime(true);
     }
 
@@ -32,13 +38,12 @@ class LivewireEasyTags extends Component
 
     public function addNewTag($tagArray)
     {
-        $myModel = User::find(1);
-        $myModel->syncTagsWithType(array_column($tagArray, 'value'), 'firstType');
+        $this->modelCollection->syncTagsWithType(array_column($tagArray, 'value'), 'firstType');
     }
 
-    public function changeColorTag($tagId, $color)
+    public function changeColorTag($tag, $tagType, $color)
     {
-        Tag::whereId($tagId)->update(['color' => $color]);
+        Tag::where(['type' => $tagType, 'name->en' => $tag])->update(['color' => $color]);
     }
 
     public function deleteTag($tagId)
@@ -47,23 +52,21 @@ class LivewireEasyTags extends Component
     }
 
     /**
-     * Get user tags of the first type.
+     * Get model tags of the first type.
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getUserTags(): Collection
+    public function getModelTags(): Collection
     {
-        // Find the user with ID 1
-        $user = User::findOrFail(1);
-
         // Retrieve the tags with the specified type
-        $tags = $user->tags()->where('type', 'firstType')->get();
+        $tags = $this->modelCollection->tags()->where('type', 'firstType')->get();
 
         // Map the tags to the desired format
         $mappedTags = $tags->map(function ($tag) {
             return [
                 'id' => $tag->id,
                 'value' => $tag->name,
+                'type' => $tag->type,
                 'color' => $tag->color == null ? 'lightgray' : $tag->color,
             ];
         });
@@ -74,8 +77,7 @@ class LivewireEasyTags extends Component
 
     public function removeTag($tagsArray)
     {
-        $myModel = User::find(1);
-        $myModel->detachTag($tagsArray['value'], 'firstType');
+        $this->modelCollection->detachTag($tagsArray['value'], 'firstType');
     }
 
 
@@ -104,6 +106,7 @@ class LivewireEasyTags extends Component
             return [
                 'id' => $tag->id,
                 'value' => $tag->name,
+                'type' => $tag->type,
                 'color' => $tag->color
             ];
         });

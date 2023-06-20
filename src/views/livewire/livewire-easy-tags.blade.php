@@ -2,21 +2,24 @@
     <div style="position:relative" wire:key='{{ $componentKey }}' x-data="{
         tagify: null,
         openDropdown: false,
-        defaultColor: 'lightgray',
+        defaultColor: '{{ $this->defaultColor }}',
         activeTag: null,
         tagInput: null,
         whitelist: [],
-        transformTag: function(tagData, color = '') {
-            color = this.defaultColor;
-            if (tagData.hasOwnProperty('color')) {
-                color = tagData.color;
-            }
-            tagData.style = '--tag-bg:' + color;
-        },
+    
         initTagify: function() {
+    
+            let transformTag = (tagData) => {
+                var color = this.defaultColor;
+                if (tagData.hasOwnProperty('color')) {
+                    color = tagData.color;
+                }
+                tagData.style = '--tag-bg:' + color;
+    
+            }
             return new Tagify(this.tagInput, {
                 whitelist: [],
-                transformTag: this.transformTag,
+                transformTag: transformTag,
                 dropdown: {
                     enabled: 0
                 }
@@ -34,7 +37,7 @@
             tagData.style = '--tag-bg:' + tagData.color;
             this.tagify.replaceTag(tagElm, tagData);
             this.openDropdown = false;
-            Livewire.emit('changeColorTagEvent', this.activeTag.data.id, color);
+            Livewire.emit('changeColorTagEvent', this.activeTag.data.value, this.activeTag.data.type, color);
         },
         deleteTag: function() {
             Livewire.emit('deleteTagEvent', this.activeTag.data.id);
@@ -92,7 +95,7 @@
         }
     }">
 
-        <input type="text" x-ref="tagInput" value='{{ $this->getUserTags() }}'>
+        <input type="text" x-ref="tagInput" value='{{ $this->getModelTags() }}'>
         <div x-ref="panel" x-show="openDropdown" x-transition.origin.top.left x-on:click.outside="close()"
             style="display: none;" class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md">
             <!-- Added flex and flex-col classes -->
