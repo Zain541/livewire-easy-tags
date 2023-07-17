@@ -19,7 +19,8 @@ class LivewireEasyTagsServiceProvider extends ServiceProvider{
 
     $this->publishes([
         __DIR__.'/Config/livewire-easy-tags.php' => config_path('livewire-easy-tags.php'),
-    ], 'livewire-easy-tags-config');
+        __DIR__.'/Database/Migrations/create_tags_table.php' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_tags_table.php'),
+    ], 'livewire-easy-tags');
     //php artisan vendor:publish --provider="LivewireEasyTags\LivewireEasyTagsServiceProvider"  --tag=livewire-easy-tags-config
   }
 
