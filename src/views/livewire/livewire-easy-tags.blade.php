@@ -1,6 +1,6 @@
 <div wire:ignore class="p-3">
     @php
-        $configuration = $this->parentConfigurations();
+        $configuration = $this->prepareConfigurations();
     @endphp
     <div style="position:relative" wire:key='{{ $componentKey }}' x-data="{
         tagify: null,
