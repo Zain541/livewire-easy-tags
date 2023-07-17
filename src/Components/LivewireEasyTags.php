@@ -16,8 +16,7 @@ class LivewireEasyTags extends Component
     public $modelId;
     public $modelCollection;
 
-    protected $defaultColor = 'lightgray';
-
+    public $defaultColor = 'lightgray';
     public function mount()
     {
         $modelObject = new $this->modelClass;
@@ -36,12 +35,49 @@ class LivewireEasyTags extends Component
         ];
     }
 
+    public function parentConfigurations() : array
+    {
+
+        $configurationKeys = ['colors', 'default_color'];
+        $configurations = $this->configurations();
+        $prepareFinalConfigurations = [];
+        foreach($configurationKeys as $configurationKey)
+        {
+            if(isset($configurations[$configurationKey]) && $configurations[$configurationKey] != '' && $configurations[$configurationKey] != null)
+            {
+                if($configurationKey == 'colors')
+                {
+                    if(is_array($configurations[$configurationKey]) && count($configurations[$configurationKey]) > 0)
+                    {
+
+                        $prepareFinalConfigurations[$configurationKey] = $configurations[$configurationKey];
+                    }
+                }
+                else
+                {
+                    $prepareFinalConfigurations[$configurationKey] = $configurations[$configurationKey];
+                }
+            }
+            else
+            {
+                $prepareFinalConfigurations[$configurationKey] = config('livewire-easy-tags')[$configurationKey];
+            }
+        }
+        return $prepareFinalConfigurations;
+    }
+
+    protected function configurations(): array
+    {
+       return [];
+    }
+
+
     public function addNewTag($tagArray)
     {
         $this->modelCollection->syncTagsWithType(array_column($tagArray, 'value'), 'firstType');
     }
 
-    public function changeColorTag($tag, $tagType, $color)
+    public function changeColorTag($tag, $tagType, $color) : void
     {
         Tag::where(['type' => $tagType, 'name->en' => $tag])->update(['color' => $color]);
     }
@@ -75,7 +111,7 @@ class LivewireEasyTags extends Component
         return $mappedTags;
     }
 
-    public function removeTag($tagsArray)
+    public function removeTag($tagsArray) : void
     {
         $this->modelCollection->detachTag($tagsArray['value'], 'firstType');
     }
@@ -126,10 +162,8 @@ class LivewireEasyTags extends Component
         $whitelist = '';
         $whitelistArray = [];
         foreach ($tags as $tag) {
-            // $whitelist .= "{id: '" . $tag->id . "' , value: '" . $tag->name . "'},";
             $whitelistArray[] = $tag->name;
         }
-        // $whitelist .= "'" . implode ( "', '", $whitelistArray ) . "'";
         $whitelist .= "{'value': 'working', color: 'pink', style: '--tag-bg:pink'},{'value': 'great', 'color': 'yellow'}";
         return $whitelist;
     }

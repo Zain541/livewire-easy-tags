@@ -1,28 +1,22 @@
 <div wire:ignore class="p-3">
-    @php
-        $configuration = $this->parentConfigurations();
-    @endphp
     <div style="position:relative" wire:key='{{ $componentKey }}' x-data="{
         tagify: null,
         openDropdown: false,
-        defaultColor: '{{ $configuration['default_color'] }}',
+        defaultColor: 'lightgray',
         activeTag: null,
         tagInput: null,
         whitelist: [],
-
-        initTagify: function() {
-
-            let transformTag = (tagData) => {
-                var color = this.defaultColor;
-                if (tagData.hasOwnProperty('color')) {
-                    color = tagData.color;
-                }
-                tagData.style = '--tag-bg:' + color;
-
+        transformTag: function(tagData, color = '') {
+            color = this.defaultColor;
+            if (tagData.hasOwnProperty('color')) {
+                color = tagData.color;
             }
+            tagData.style = '--tag-bg:' + color;
+        },
+        initTagify: function() {
             return new Tagify(this.tagInput, {
                 whitelist: [],
-                transformTag: transformTag,
+                transformTag: this.transformTag,
                 dropdown: {
                     enabled: 0
                 }
@@ -40,7 +34,7 @@
             tagData.style = '--tag-bg:' + tagData.color;
             this.tagify.replaceTag(tagElm, tagData);
             this.openDropdown = false;
-            Livewire.emit('changeColorTagEvent', this.activeTag.data.value, this.activeTag.data.type, color);
+            Livewire.emit('changeColorTagEvent', this.activeTag.data.id, color);
         },
         deleteTag: function() {
             Livewire.emit('deleteTagEvent', this.activeTag.data.id);
@@ -52,15 +46,15 @@
             if (!this.openDropdown) return
             this.openDropdown = false
         },
-
+    
         init() {
             this.$nextTick(() => {
-
+    
                 this.tagInput = this.$refs.tagInput;
                 this.tagify = this.initTagify();
                 this.whitelist = [{!! $this->prepareWhitelist() !!}];
                 this.tagify.whitelist = this.whitelist;
-
+    
                 let onTagEdit = (e) => {
                     var updatedValue = e.detail.data.value;
                     var updatedTagId = e.detail.data.id;
@@ -73,49 +67,49 @@
                         }
                         return item;
                     });
-
+    
                 }
                 let onTagClick = (e) => {
                     this.activeTag = e.detail;
                     this.toggle();
                 }
-
+    
                 let onAddTag = (e) => {
                     Livewire.emit('addNewTagEvent', e.detail.tagify.value);
                     this.tagify.whitelist.push({ 'value': e.detail.data.value, 'color': this.defaultColor });
                 }
-
+    
                 let onRemoveTag = (e) => {
                     Livewire.emit('removeTagEvent', e.detail.data);
                 }
-
+    
                 this.tagify.on('add', onAddTag)
                     .on('remove', onRemoveTag)
                     .on('edit:updated', onTagEdit)
                     .on('click', onTagClick);
-
+    
             });
         }
     }">
 
         <input type="text" x-ref="tagInput" value='{{ $this->getModelTags() }}'>
-        <div x-ref="panel" class="tagify__dropdown tagify__dropdown--text absolute left-0 mt-2 px-2 rounded-md" x-show="openDropdown" x-transition.origin.top.left x-on:click.outside="close()"
-            style="display: none; !important;" class="">
+        <div x-ref="panel" x-show="openDropdown" x-transition.origin.top.left x-on:click.outside="close()"
+            style="display: none;" class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md">
             <!-- Added flex and flex-col classes -->
-            <div class="tagify__dropdown__item flex cursor-pointer px-4 py-2.5 my-1 text-left text-sm hover:bg-gray-200 disabled:text-gray-500 items-center">
-                <a x-on:click="deleteTag()"
-                    class="gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md mb-2">
-                    Delete
-                </a>
-            </div>
+            <a x-on:click="deleteTag()"
+                class="flex cursor-pointer items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-200 disabled:text-gray-500">
+                Delete
+            </a>
+            <div class="flex pl-2 pb-2">
+                <div x-on:click="changeColor('pink')" class="cursor-pointer ml-1 color-container"
+                    style="background: pink; ">
 
-            <div class="flex pl-2 pb-2 my-3" style="flex-wrap: wrap; margin-bottom: 10px">
-                @foreach ($configuration['colors'] as $color)
-                    <div x-on:click="changeColor('{{ $color }}')" class="cursor-pointer ml-1 mb-1 color-container"
-                    style="background: {{ $color }};"></div>
-                @endforeach
-            </div>
+                </div>
+                <div x-on:click="changeColor('lightgreen')" class="cursor-pointer ml-1 color-container"
+                    style="background: lightgreen;">
 
+                </div>
+            </div>
 
             <!-- Add more flex items here -->
         </div>
@@ -123,17 +117,11 @@
 
     <style>
         .color-container {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
         }
-        .tagify__dropdown{
-            background-color: #ffffff;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
     </style>
-
+{{ $this->colors() }}
 
 </div>
-
