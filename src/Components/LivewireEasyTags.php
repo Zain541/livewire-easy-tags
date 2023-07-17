@@ -16,7 +16,6 @@ class LivewireEasyTags extends Component
     public $modelId;
     public $modelCollection;
 
-    public $defaultColor = 'lightgray';
     public function mount()
     {
         $modelObject = new $this->modelClass;
