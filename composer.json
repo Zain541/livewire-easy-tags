@@ -1,5 +1,5 @@
 {
-    "name": "zain/livewire-easy-tags",
+    "name": "codekinz/livewire-easy-tags",
     "description": "A Laravel tag system for artisans which is built in Livewire, Laravel Spatie tags, Tagify and Alpine Js.",
     "type": "library",
     "require": {
