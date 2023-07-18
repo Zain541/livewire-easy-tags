@@ -11,6 +11,8 @@ trait InteractsWithTags{
     public $modelId;
     public $modelCollection;
 
+    public $tagType;
+
     public function mount()
     {
         $modelObject = new $this->modelClass;
@@ -63,7 +65,7 @@ trait InteractsWithTags{
 
     public function addNewTag($tagArray) : void
     {
-        $this->modelCollection->syncTagsWithType(array_column($tagArray, 'value'), 'firstType');
+        $this->modelCollection->syncTagsWithType(array_column($tagArray, 'value'), $this->tagType);
     }
 
     public function changeColorTag($tag, $tagType, $color) : void
@@ -84,7 +86,7 @@ trait InteractsWithTags{
     public function getModelTags(): Collection
     {
         // Retrieve the tags with the specified type
-        $tags = $this->modelCollection->tags()->where('type', 'firstType')->get();
+        $tags = $this->modelCollection->tags()->where('type', $this->tagType)->get();
 
         // Map the tags to the desired format
         $mappedTags = $tags->map(function ($tag) {
@@ -102,7 +104,7 @@ trait InteractsWithTags{
 
     public function removeTag($tagsArray) : void
     {
-        $this->modelCollection->detachTag($tagsArray['value'], 'firstType');
+        $this->modelCollection->detachTag($tagsArray['value'], $this->tagType);
     }
 
 
@@ -115,7 +117,7 @@ trait InteractsWithTags{
     public function editTag(array $objectToBeArray): void
     {
         // Find the tag by ID and type
-        $record = Tag::whereType('firstType')->whereId($objectToBeArray['id'])->first();
+        $record = Tag::whereType($this->tagType)->whereId($objectToBeArray['id'])->first();
 
         // Update the tag
         $record->name = $objectToBeArray['value'];
@@ -125,7 +127,7 @@ trait InteractsWithTags{
     {
 
         // Retrieve the tags with the specified type
-        $tags = Tag::where('type', 'firstType')->get();
+        $tags = Tag::where('type', $this->tagType)->get();
 
         $mappedTags = $tags->map(function ($tag) {
             return [
