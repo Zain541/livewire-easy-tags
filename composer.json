@@ -3,7 +3,7 @@
     "description": "A Laravel tag system for artisans which is built in Livewire, Laravel Spatie tags, Tagify and Alpine Js.",
     "type": "library",
     "require": {
-        "livewire/livewire": "^2.0.*@dev",
+        "livewire/livewire": "^2.0",
         "spatie/laravel-tags": "^4.0"
     },
     "autoload": {
