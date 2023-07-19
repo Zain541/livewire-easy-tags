@@ -1,5 +1,5 @@
 <?php
-namespace LivewireEasyTags\Traits;
+namespace Codekinz\LivewireEasyTags\Traits;
 
 use Spatie\Tags\Tag;
 use Illuminate\Support\Collection;

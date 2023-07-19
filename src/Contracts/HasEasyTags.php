@@ -1,6 +1,6 @@
 <?php
 
-namespace LivewireEasyTags\Contracts;
+namespace Codekinz\LivewireEasyTags\Contracts;
 
 use Illuminate\Support\Collection;
 

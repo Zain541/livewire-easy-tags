@@ -1,10 +1,10 @@
 <?php
 
-namespace LivewireEasyTags;
+namespace Codekinz\LivewireEasyTags;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use LivewireEasyTags\Components\LivewireEasyTags;
+use Codekinz\LivewireEasyTags\Components\LivewireEasyTags;
 // namespace WireElements\Pro\Components\Modal\Foundation;
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace LivewireEasyTags\Components;
+namespace Codekinz\LivewireEasyTags\Components;
 
 use Livewire\Component;
 
