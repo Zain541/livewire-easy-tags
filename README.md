@@ -25,14 +25,14 @@ composer require codekinz/livewire-easy-tags
 
 ### Setup
 
-1. After installing the package via Composer, add the service provider to your `config/app.php` file:
+1. After installing the package via Composer, you may need to add the service provider to your `config/app.php` file:
 
 ```php
 // config/app.php
 
 'providers' => [
     // Other service providers
-    Codekinz\LivewireEasyTags\ServiceProvider::class,
+    Codekinz\LivewireEasyTags\LivewireEasyTagsServiceProvider::class,
 ],
 ```
 Publish the migration and config files
