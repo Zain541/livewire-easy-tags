@@ -4,7 +4,6 @@
     "type": "library",
     "require": {
         "php": "^7.4|^8.0",
-        "livewire/livewire": "^2.12",
         "spatie/laravel-tags": "^4.4"
     },
     "autoload": {
