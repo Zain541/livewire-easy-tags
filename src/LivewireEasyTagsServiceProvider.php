@@ -4,7 +4,7 @@ namespace LivewireEasyTags;
 
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
-use LivewireEasyTags\components\LivewireEasyTags;
+use LivewireEasyTags\Components\LivewireEasyTags;
 // namespace WireElements\Pro\Components\Modal\Foundation;
 
 
