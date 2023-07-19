@@ -39,3 +39,12 @@ Publish the migration and config files
 ```
 php artisan vendor:publish --tag=livewire-easy-tags
 ```
+Run the migration
+```
+php artisan migrate
+```
+##Usage
+In order to use Livewire easy tags, you will first need to create a Livewire component
+```
+php artisan make:livewire Tags
+```
