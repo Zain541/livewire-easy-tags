@@ -48,3 +48,21 @@ In order to use Livewire easy tags, you will first need to create a Livewire com
 ```
 php artisan make:livewire Tags
 ```
+In Livewire Tags componenent, instead of extending the Livewire class you will need to extend the `LivewireEasyTags`. You Tags component should look like this
+```
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use Codekinz\LivewireEasyTags\Components\LivewireEasyTags;
+use Codekinz\LivewireEasyTags\Contracts\HasEasyTags;
+use Codekinz\LivewireEasyTags\Traits\InteractsWithTags;
+
+class Tags extends LivewireEasyTags implements HasEasyTags
+{
+    use InteractsWithTags;
+}
+
+```
+This package uses Laravel spatie tags as underlying package. So, you need to use this Trait in your model class
