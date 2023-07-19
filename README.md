@@ -17,3 +17,19 @@ composer require codekinz/livewire-easy-tags
 - PHP 7.4 or higher
 - Laravel 8.x or higher
 - Livewire 2.x or higher
+
+
+## Getting Started
+
+### Setup
+
+1. After installing the package via Composer, add the service provider to your `config/app.php` file:
+
+```php
+// config/app.php
+
+'providers' => [
+    // Other service providers
+    Codekinz\LivewireEasyTags\ServiceProvider::class,
+],
+```
