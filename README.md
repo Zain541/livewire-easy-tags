@@ -12,11 +12,13 @@ To install Livewire Easy Tags, use Composer:
 composer require codekinz/livewire-easy-tags
 ```
 
-## Requirements
+## Prerequisite
 
-- PHP 7.4 or higher
-- Laravel 8.x or higher
 - Livewire 2.x or higher
+- Alpine Js 3.x or higher
+- Laravel Spatie Tags 4.x or higher
+- Tagify 3.x or higher
+- Tailwind 2.x or higher
 
 
 ## Getting Started
