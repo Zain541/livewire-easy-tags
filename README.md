@@ -10,6 +10,8 @@ To install Livewire Easy Tags, use Composer:
 
 ```bash
 composer require codekinz/livewire-easy-tags
+```
+
 ## Requirements
 
 - PHP 7.4 or higher
