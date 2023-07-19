@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "LivewireEasyTags\\": "src/"
+            "Codekinz\\LivewireEasyTags\\": "src/"
         }
     },
     "license": "MIT",
