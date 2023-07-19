@@ -35,3 +35,7 @@ composer require codekinz/livewire-easy-tags
     Codekinz\LivewireEasyTags\ServiceProvider::class,
 ],
 ```
+Publish the migration and config files
+```
+php artisan vendor:publish --tag=livewire-easy-tags
+```
