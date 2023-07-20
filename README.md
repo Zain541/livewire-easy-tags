@@ -42,7 +42,8 @@ Run the migration
 ```bash
 php artisan migrate
 ```
-## Usage
+
+### Set up the Livewire component
 In order to use Livewire easy tags, you will first need to create a Livewire component
 ```bash
 php artisan make:livewire Tags
@@ -64,6 +65,7 @@ class Tags extends LivewireEasyTags implements HasEasyTags
 }
 
 ```
+### Add trait to Laravel Model
 This package uses <a href="https://spatie.be/docs/laravel-tags/v4/introduction" target="_blank">Laravel Spatie Tags</a> as an underlying package. So, in order to use its functionality, you need to use this Trait `HasSpatieTags` in your model class.
 ```php
 <?php
@@ -80,6 +82,7 @@ class YourModel extends Model
     ...
 }
 ```
+### Usage
 Now we are good to go. We just need to call our Livewire component in a blade file.
 ```blade
  @livewire('dashboard',
