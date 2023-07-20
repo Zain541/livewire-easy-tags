@@ -48,7 +48,7 @@ In order to use Livewire easy tags, you will first need to create a Livewire com
 ```bash
 php artisan make:livewire Tags
 ```
-In Livewire Tags componenent, instead of extending the Livewire class you will need to extend the `LivewireEasyTags`. You Tags component should look like this
+In Livewire Tags component, instead of extending the Livewire class you will need to extend the `LivewireEasyTags`. You Tags component should look like this
 ```php
 <?php
 
@@ -89,13 +89,13 @@ Now we are good to go. We just need to call our Livewire component in a blade fi
         [
             'modelClass' => App\Models\User::class,
             'modelId' => 2,
-            'tagType' => 'tasks'
+            'tagType' => 'flights'
         ])
 ```
 Here is the explanation of parameters
 - `modelClass` is the class of the model that you want to associate with the tag
 - `modelId` is the record identifier i.e primary key value
-- `tagType` allows you to set up tags for multiple modules. For instance, you need to use tags for multiple modules like `travel`, `bookings` and `tasks` then the `tagType` parameter will serve the purpose.
+- `tagType` allows you to set up tags for multiple modules. For instance, you need to use tags for multiple modules like travel, bookings and flights then the `tagType` parameter will serve the purpose.
 
 ## Configurations
 Configurations are available at `config/livewire-easy-tags.php`. You can change the configuration in this file globally or you can use this function in your `Tags` component if you want to have multiple tags component
