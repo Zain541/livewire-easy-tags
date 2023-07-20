@@ -65,7 +65,7 @@ class Tags extends LivewireEasyTags implements HasEasyTags
 }
 
 ```
-This package uses <a href="https://spatie.be/docs/laravel-tags/v4/introduction" target="_blank">Laravel Spatie Tags</a> as an underlying package. So, you need to use this Trait `HasSpatieTags` in your model class to use. Your model should look like this
+This package uses <a href="https://spatie.be/docs/laravel-tags/v4/introduction" target="_blank">Laravel Spatie Tags</a> as an underlying package. So, in order to use its functionality, you need to use this Trait `HasSpatieTags` in your model class.
 ```
 <?php
 
@@ -78,5 +78,6 @@ use Codekinz\LivewireEasyTags\Traits\HasSpatieTags;
 class YourModel extends Model
 {
     use HasFactory, HasSpatieTags;
+    ...
 }
 ```
