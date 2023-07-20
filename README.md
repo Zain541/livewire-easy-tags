@@ -95,6 +95,9 @@ Here is the explanation of parameters
 - `modelId` is the record identifier i.e primary key value
 - `tagType` allows you to set up tags for multiple modules. For instance, you need to use tags for multiple modules like `travel`, `bookings` and `tasks` then you can add these values to the `tagType` parameter
 
+## Main Contributor
+- [Zain Farooq](https://www.linkedin.com/in/zain-farooq-b3a914147)
+
 ## Configurations
 Configurations are available at `config/livewire-easy-tags`. You can change the configuration in this file or you can use this function in your `Tags` component
 ```php
