@@ -97,7 +97,7 @@ Here is the explanation of parameters
 
 ## Configurations
 Configurations are available at `config/livewire-easy-tags`. You can change the configuration in this file or you can use this function in your `Tags` component
-```
+```php
 <?php
 
 namespace App\Http\Livewire;
