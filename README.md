@@ -13,10 +13,9 @@ composer require codekinz/livewire-easy-tags
 ```
 
 ## Prerequisite
-
+- Laravel 7.x or higher
 - Livewire 2.x or higher
 - Alpine Js 3.x or higher
-- Laravel Spatie Tags 4.x or higher
 - Tagify 3.x or higher
 - Tailwind 2.x or higher
 
