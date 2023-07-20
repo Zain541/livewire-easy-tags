@@ -125,13 +125,13 @@ class Tags extends LivewireEasyTags implements HasEasyTags
 
 ```
 ## FAQs
-Q. How to add or change colors of tags?
+Q. How to add or change colors of tags?  
 A. If you click on any tag you will see a dropdown containing the list of colors and a delete button. Choose any color and you will see the effect
 
-Q. How to delete a tag permenantly?
+Q. How to delete a tag permenantly?  
 A. Just like previously, you need to click on the tag you will see a dropdown containing list of colors and a delete button. Click on the delete button to remove that tag permanently.
 
-Q. How to edit a tag?
+Q. How to edit a tag?  
 A. Double click on a tag and edit it.
 
 ## Main Contributor
