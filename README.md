@@ -36,20 +36,20 @@ composer require codekinz/livewire-easy-tags
 ],
 ```
 Publish the migration and config files
-```
+```bash
 php artisan vendor:publish --tag=livewire-easy-tags
 ```
 Run the migration
-```
+```bash
 php artisan migrate
 ```
 ## Usage
 In order to use Livewire easy tags, you will first need to create a Livewire component
-```
+```bash
 php artisan make:livewire Tags
 ```
 In Livewire Tags componenent, instead of extending the Livewire class you will need to extend the `LivewireEasyTags`. You Tags component should look like this
-```
+```php
 <?php
 
 namespace App\Http\Livewire;
@@ -66,7 +66,7 @@ class Tags extends LivewireEasyTags implements HasEasyTags
 
 ```
 This package uses <a href="https://spatie.be/docs/laravel-tags/v4/introduction" target="_blank">Laravel Spatie Tags</a> as an underlying package. So, in order to use its functionality, you need to use this Trait `HasSpatieTags` in your model class.
-```
+```php
 <?php
 
 namespace App\Models;
