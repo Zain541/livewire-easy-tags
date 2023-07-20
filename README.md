@@ -126,4 +126,4 @@ class Tags extends LivewireEasyTags implements HasEasyTags
 
 ```
 ## License
-Livewire Easy Tags is open-source software licensed under the MIT license.
+Livewire Easy Tags is open-source software licensed under the MIT license and powered by [Codekinz](https://codekinz.com).
