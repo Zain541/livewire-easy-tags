@@ -95,7 +95,7 @@ Here is the explanation of parameters
 - `tagType` allows you to set up tags for multiple modules. For instance, you need to use tags for multiple modules like `travel`, `bookings` and `tasks` then you can add these values to the `tagType` parameter
 
 ## Configurations
-Configurations are available at `config/livewire-easy-tags`. You can change the configuration in this file globally or you can use this function in your `Tags` component if you want to have multiple tags component
+Configurations are available at `config/livewire-easy-tags.php`. You can change the configuration in this file globally or you can use this function in your `Tags` component if you want to have multiple tags component
 ```php
 <?php
 
