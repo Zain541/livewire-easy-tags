@@ -43,7 +43,7 @@ Run the migration
 ```
 php artisan migrate
 ```
-##Usage
+## Usage
 In order to use Livewire easy tags, you will first need to create a Livewire component
 ```
 php artisan make:livewire Tags
@@ -95,7 +95,7 @@ Here is the explanation of parameters
 - `modelId` is the record identifier i.e primary key value
 - `tagType` allows you to set up tags for multiple modules. For instance, you need to use tags for multiple modules like `travel`, `bookings` and `tasks` then you can add these values to the `tagType` parameter
 
-##Configurations
+## Configurations
 Configurations are available at `config/livewire-easy-tags`. You can change the configuration in this file or you can use this function in your `Tags` component
 ```
 <?php
@@ -125,5 +125,5 @@ class Tags extends LivewireEasyTags implements HasEasyTags
 }
 
 ```
-##License
+## License
 Livewire Easy Tags is open-source software licensed under the MIT license.
