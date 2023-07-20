@@ -81,3 +81,49 @@ class YourModel extends Model
     ...
 }
 ```
+Now we are good to go. We just need to call our Livewire component in a blade file.
+```
+ @livewire('dashboard',
+        [
+            'modelClass' => App\Models\User::class,
+            'modelId' => 2,
+            'tagType' => 'tasks'
+        ])
+```
+Here is the explanation of parameters
+- `modelClass` is the class of the model that you want to associate with the tag
+- `modelId` is the record identifier i.e primary key value
+- `tagType` allows you to set up tags for multiple modules. For instance, you need to use tags for multiple modules like `travel`, `bookings` and `tasks` then you can add these values to the `tagType` parameter
+
+##Configurations
+Configurations are available at `config/livewire-easy-tags`. You can change the configuration in this file or you can use this function in your `Tags` component
+```
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+use Codekinz\LivewireEasyTags\Components\LivewireEasyTags;
+use Codekinz\LivewireEasyTags\Contracts\HasEasyTags;
+use Codekinz\LivewireEasyTags\Traits\InteractsWithTags;
+
+class Tags extends LivewireEasyTags implements HasEasyTags
+{
+    use InteractsWithTags;
+
+    protected function configurations(): array
+    {
+       return [
+        'colors' => [
+            'lightblue' => '#add8e6',
+            'lightgreen' => '#90ee90',
+            'pink' => '#ffc0cb',
+        ],
+        'default_color' => 'yellow'
+];
+    }
+}
+
+```
+##License
+Livewire Easy Tags is open-source software licensed under the MIT license.
