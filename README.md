@@ -114,13 +114,13 @@ class Tags extends LivewireEasyTags implements HasEasyTags
     protected function configurations(): array
     {
        return [
-        'colors' => [
-            'lightblue' => '#add8e6',
-            'lightgreen' => '#90ee90',
-            'pink' => '#ffc0cb',
-        ],
-        'default_color' => 'yellow'
-];
+            'colors' => [
+                'lightblue' => '#add8e6',
+                'lightgreen' => '#90ee90',
+                'pink' => '#ffc0cb',
+            ],
+            'default_color' => 'yellow'
+        ];
     }
 }
 
