@@ -82,7 +82,7 @@ class YourModel extends Model
 }
 ```
 Now we are good to go. We just need to call our Livewire component in a blade file.
-```
+```blade
  @livewire('dashboard',
         [
             'modelClass' => App\Models\User::class,
